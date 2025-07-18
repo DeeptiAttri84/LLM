@@ -80,7 +80,7 @@ momcares/
 ├── templates/
 │   └── index.html      # Frontend template (embedded in app.py)
 ├── requirements.txt    # Python dependencies
-└── README.md          # This file
+└── README.md           # This file
 ```
 
 ## Running the Application
@@ -166,7 +166,7 @@ The application uses embedded CSS. You can modify the styling by editing the `<s
 flask
 langchain-community
 langchain
-uuid
+ollama
 ```
 
 ## Contributing
