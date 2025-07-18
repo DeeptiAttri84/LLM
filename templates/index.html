@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>👩‍🍳 MomCares – Recipes & Chat ❤️</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+ body {
+    background: linear-gradient(135deg, #f5e6e8, #d5c1c4);
+}
+
+
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #d32525;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+
+        .tabs {
+            display: flex;
+            background-color: #fff;
+            border-radius: 10px 10px 0 0;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .tab {
+            flex: 1;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .tab.active {
+            background-color: #25D366;
+            color: white;
+        }
+
+        .tab:hover {
+            background-color: #20c25a;
+            color: white;
+        }
+
+        .tab-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            min-height: 500px;
+        }
+
+        .chat-container {
+            height: 400px;
+            overflow-y: auto;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            background-color: #fafafa;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 70%;
+            word-wrap: break-word;
+        }
+
+        .user-message {
+            background-color: #DCF8C6;
+            margin-left: auto;
+            text-align: right;
+        }
+
+        .bot-message {
+            background-color: #FFFFFF;
+            margin-right: auto;
+            border: 1px solid #e0e0e0;
+        }
+
+        .message-header {
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+        }
+
+        .input-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .message-input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .message-input:focus {
+            border-color: #25D366;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            background-color: #25D366;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #20c25a;
+        }
+
+        .btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+        .recipe-container {
+            margin-top: 20px;
+        }
+
+        .recipe-input {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            outline: none;
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .recipe-input:focus {
+            border-color: #25D366;
+        }
+
+        .recipe-result {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #25D366;
+        }
+
+        .loading {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+        }
+
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .info-message {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>👩‍🍳 MomCares – Recipes & Chat ❤️</h1>
+        
+        <div class="tabs">
+            <button class="tab active" onclick="openTab(event, 'chat-tab')">💬 Chat</button>
+            <button class="tab" onclick="openTab(event, 'recipe-tab')">👩‍🍳 Get Recipe</button>
+        </div>
+        
+        <div id="chat-tab" class="tab-content">
+            <h2>Chat with the bot</h2>
+            <div id="chat-container" class="chat-container">
+                <div id="chat-messages">
+                    <div class="info-message">Start the conversation!</div>
+                </div>
+            </div>
+            
+            <div class="input-container">
+                <input type="text" id="message-input" class="message-input" placeholder="Type your message..." onkeypress="handleKeyPress(event)">
+                <button onclick="sendMessage()" class="btn" id="send-btn">Send</button>
+                <button onclick="clearChat()" class="btn btn-secondary">Clear Chat</button>
+            </div>
+        </div>
+        
+        <div id="recipe-tab" class="tab-content hidden">
+            <h2>Get an Indian-style Recipe</h2>
+            <div class="recipe-container">
+                <textarea id="ingredients-input" class="recipe-input" placeholder="e.g., potato, onion, tomato"></textarea>
+                <br><br>
+                <button onclick="getRecipe()" class="btn" id="recipe-btn">Get Recipe</button>
+                <div id="recipe-result" class="recipe-result hidden">
+                    <h3>👩‍🍳 Here's your recipe:</h3>
+                    <div id="recipe-content"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            Built with ❤️ using LangChain + Ollama + Flask
+        </div>
+    </div>
+
+    <script>
+        // Tab functionality
+        function openTab(evt, tabName) {
+            const tabcontent = document.getElementsByClassName("tab-content");
+            const tabs = document.getElementsByClassName("tab");
+            
+            for (let i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.add("hidden");
+            }
+            
+            for (let i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove("active");
+            }
+            
+            document.getElementById(tabName).classList.remove("hidden");
+            evt.currentTarget.classList.add("active");
+        }
+
+        // Load chat history on page load
+        window.onload = function() {
+            loadChatHistory();
+        }
+
+        function loadChatHistory() {
+            fetch('/get_chat_history')
+                .then(response => response.json())
+                .then(data => {
+                    const chatMessages = document.getElementById('chat-messages');
+                    chatMessages.innerHTML = '';
+                    
+                    if (data.length === 0) {
+                        chatMessages.innerHTML = '<div class="info-message">Start the conversation!</div>';
+                    } else {
+                        data.forEach(msg => {
+                            addMessageToChat(msg.user, msg.bot);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading chat history:', error);
+                });
+        }
+
+        function addMessageToChat(userMessage, botResponse) {
+            const chatMessages = document.getElementById('chat-messages');
+            const infoMessage = chatMessages.querySelector('.info-message');
+            if (infoMessage) {
+                infoMessage.remove();
+            }
+            
+            const messageDiv = document.createElement('div');
+            messageDiv.innerHTML = `
+                <div class="message user-message">
+                    <div class="message-header">You:</div>
+                    <div>${userMessage}</div>
+                </div>
+                <div class="message bot-message">
+                    <div class="message-header">🤖 Bot:</div>
+                    <div>${botResponse.replace(/\n/g, '<br>')}</div>
+                </div>
+            `;
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function sendMessage() {
+            const messageInput = document.getElementById('message-input');
+            const sendBtn = document.getElementById('send-btn');
+            const message = messageInput.value.trim();
+            
+            if (!message) {
+                showError('Please type something to send!');
+                return;
+            }
+            
+            // Disable button and show loading
+            sendBtn.disabled = true;
+            sendBtn.textContent = 'Sending...';
+            
+            // Add user message immediately
+            const chatMessages = document.getElementById('chat-messages');
+            const infoMessage = chatMessages.querySelector('.info-message');
+            if (infoMessage) {
+                infoMessage.remove();
+            }
+            
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = `
+                <div class="message user-message">
+                    <div class="message-header">You:</div>
+                    <div>${message}</div>
+                </div>
+                <div class="message bot-message">
+                    <div class="message-header">🤖 Bot:</div>
+                    <div class="loading">Bot is typing...</div>
+                </div>
+            `;
+            chatMessages.appendChild(tempDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            fetch('/send_message', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({message: message})
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    showError(data.error);
+                    tempDiv.remove();
+                } else {
+                    // Update the loading message with actual response
+                    const loadingDiv = tempDiv.querySelector('.loading');
+                    loadingDiv.innerHTML = data.bot_response.replace(/\n/g, '<br>');
+                    loadingDiv.classList.remove('loading');
+                }
+                
+                messageInput.value = '';
+                sendBtn.disabled = false;
+                sendBtn.textContent = 'Send';
+            })
+            .catch(error => {
+                showError('Something went wrong: ' + error.message);
+                tempDiv.remove();
+                sendBtn.disabled = false;
+                sendBtn.textContent = 'Send';
+            });
+        }
+
+        function clearChat() {
+            fetch('/clear_chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const chatMessages = document.getElementById('chat-messages');
+                    chatMessages.innerHTML = '<div class="info-message">Start the conversation!</div>';
+                }
+            })
+            .catch(error => {
+                showError('Failed to clear chat: ' + error.message);
+            });
+        }
+
+        function getRecipe() {
+            const ingredientsInput = document.getElementById('ingredients-input');
+            const recipeBtn = document.getElementById('recipe-btn');
+            const recipeResult = document.getElementById('recipe-result');
+            const recipeContent = document.getElementById('recipe-content');
+            const ingredients = ingredientsInput.value.trim();
+            
+            if (!ingredients) {
+                showError('Please enter some ingredients!');
+                return;
+            }
+            
+            // Show loading
+            recipeBtn.disabled = true;
+            recipeBtn.textContent = 'Generating recipe...';
+            recipeResult.classList.add('hidden');
+            
+            fetch('/get_recipe', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ingredients: ingredients})
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    showError(data.error);
+                } else {
+                    recipeContent.innerHTML = data.recipe.replace(/\n/g, '<br>');
+                    recipeResult.classList.remove('hidden');
+                }
+                
+                recipeBtn.disabled = false;
+                recipeBtn.textContent = 'Get Recipe';
+            })
+            .catch(error => {
+                showError('Failed to generate recipe: ' + error.message);
+                recipeBtn.disabled = false;
+                recipeBtn.textContent = 'Get Recipe';
+            });
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function showError(message) {
+            // Create error message element
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error';
+            errorDiv.textContent = message;
+            
+            // Insert at the top of the current active tab
+            const activeTab = document.querySelector('.tab-content:not(.hidden)');
+            activeTab.insertBefore(errorDiv, activeTab.firstChild);
+            
+            // Remove error after 5 seconds
+            setTimeout(() => {
+                errorDiv.remove();
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
