@@ -37,7 +37,7 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 ### 3. Install Dependencies
 
 ```bash
-pip install flask langchain-community langchain uuid
+pip install -r requirements.txt
 ```
 
 ### 4. Install and Setup Ollama
@@ -166,7 +166,6 @@ The application uses embedded CSS. You can modify the styling by editing the `<s
 flask
 langchain-community
 langchain
-ollama
 ```
 
 ## Contributing
@@ -180,10 +179,8 @@ ollama
 
 ## Screenshots
 
-<p float="left">
-  <img width="300" height="200" alt="Chat Suggestion" src="https://github.com/user-attachments/assets/88d2d700-09af-44f9-8c94-a210d9829ff3" />
-  <img width="300" height="200" alt="Recipe Output" src="https://github.com/user-attachments/assets/e943dee6-d1d7-4692-9f5d-9d9c9aa0fff7" />
+<p align="center">
+  <img width="300" alt="Chat Suggestion" src="https://github.com/user-attachments/assets/88d2d700-09af-44f9-8c94-a210d9829ff3" />
+  <img width="300" alt="Recipe Output" src="https://github.com/user-attachments/assets/e943dee6-d1d7-4692-9f5d-9d9c9aa0fff7" />
 </p>
-
-*Left: Chat interface showing a dinner suggestion request*  
-*Right: Recipe suggestions based on available ingredients*
+<p align="center"><em>Left: Chat interface showing a dinner suggestion request | Right: Recipe suggestions based on available ingredients</em></p>
