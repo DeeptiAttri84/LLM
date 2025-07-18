@@ -182,8 +182,8 @@ uuid
 This project is open source and available under the [MIT License](LICENSE).
 
 ## Screenshot
-<img width="891" height="818" alt="Screenshot 2025-07-18 214140" src="https://github.com/user-attachments/assets/88d2d700-09af-44f9-8c94-a210d9829ff3" />
-*Chat interface showing a dinner suggestion request*
+<img width="600" height="400" alt="Screenshot 2025-07-18 214140" src="https://github.com/user-attachments/assets/88d2d700-09af-44f9-8c94-a210d9829ff3" />
+* Chat interface showing a dinner suggestion request *
 
-<img width="854" height="997" alt="Screenshot 2025-07-18 214538" src="https://github.com/user-attachments/assets/e943dee6-d1d7-4692-9f5d-9d9c9aa0fff7" />
-*Recipe suggestions based on available ingredients*
+<img width="600" height="400" alt="Screenshot 2025-07-18 214538" src="https://github.com/user-attachments/assets/e943dee6-d1d7-4692-9f5d-9d9c9aa0fff7" />
+* Recipe suggestions based on available ingredients *
